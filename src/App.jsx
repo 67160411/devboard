@@ -1,3 +1,6 @@
+import Navbar from "./components/Navbar";
+import PostCard from "./components/PostCard";
+
 const POSTS = [
   {
     id: 1,
@@ -28,7 +31,10 @@ const USERS = [
 ];
 
 function App() {
-  return <div></div>;
+  return;
+  <div>
+    <Navbar />
+  </div>;
 }
 
 export default App;
