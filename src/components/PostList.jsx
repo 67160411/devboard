@@ -8,6 +8,8 @@ function PostList({ favorites, onToggleFavorite }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
 
   useEffect(() => {
     async function fetchPosts() {
@@ -29,6 +31,12 @@ function PostList({ favorites, onToggleFavorite }) {
 
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
+  );
+  const totalPages = Math.ceil(filtered.length / postsPerPage);
+
+  const paginatedPosts = filtered.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage,
   );
 
   if (loading) return <LoadingSpinner />;
@@ -83,9 +91,37 @@ function PostList({ favorites, onToggleFavorite }) {
         </p>
       )}
 
-      {filtered.map((post) => (
+      {paginatedPosts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+          marginTop: "1rem",
+        }}
+      >
+        <button
+          onClick={() => setCurrentPage((p) => p - 1)}
+          disabled={currentPage === 1}
+        >
+          ← ก่อนหน้า
+        </button>
+
+        <span>
+          หน้า {currentPage} / {totalPages}
+        </span>
+
+        <button
+          onClick={() => setCurrentPage((p) => p + 1)}
+          disabled={currentPage === totalPages}
+        >
+          ถัดไป →
+        </button>
+      </div>
     </div>
   );
 }
