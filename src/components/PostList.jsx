@@ -82,12 +82,7 @@ function PostList({ favorites, onToggleFavorite }) {
       )}
 
       {filtered.map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-          isFavorite={favorites.includes(post.id)}
-          onToggleFavorite={() => onToggleFavorite(post.id)}
-        />
+        <PostCard key={post.id} post={post} />
       ))}
     </div>
   );
