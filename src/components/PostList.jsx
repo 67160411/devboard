@@ -8,8 +8,8 @@ function PostList({ favorites, onToggleFavorite }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1); // หน้าเริ่มต้นคือ 1
+  const postsPerPage = 10; // จำนวนโพสต์ต่อหน้า
 
   useEffect(() => {
     async function fetchPosts() {
@@ -27,16 +27,17 @@ function PostList({ favorites, onToggleFavorite }) {
       }
     }
     fetchPosts();
-  }, []); // [] = ทำครั้งเดียวตอน component mount
+  }, []);
 
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
   );
-  const totalPages = Math.ceil(filtered.length / postsPerPage);
+  const totalPages = Math.ceil(filtered.length / postsPerPage); // คำนวณจำนวนหน้าทั้งหมด
 
   const paginatedPosts = filtered.slice(
-    (currentPage - 1) * postsPerPage,
-    currentPage * postsPerPage,
+    // ตัดโพสต์ตามหน้าปัจจุบัน
+    (currentPage - 1) * postsPerPage, // เริ่มจาก index ของโพสต์แรกในหน้านั้น
+    currentPage * postsPerPage, // ไปจนถึง index ของโพสต์สุดท้ายในหน้านั้น
   );
 
   if (loading) return <LoadingSpinner />;
@@ -95,7 +96,7 @@ function PostList({ favorites, onToggleFavorite }) {
         <PostCard key={post.id} post={post} />
       ))}
 
-      <div
+      <div // ปุ่มเปลี่ยนหน้า
         style={{
           display: "flex",
           justifyContent: "center",

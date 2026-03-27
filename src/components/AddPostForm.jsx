@@ -50,7 +50,7 @@ function AddPostForm({ onAddPost }) {
           textAlign: "right",
           fontSize: "0.8rem",
           color: title.length > 90 ? "#e53e3e" : "#718096",
-          marginBottom: "0.5rem",
+          marginBottom: "1.5rem",
         }}
       >
         {title.length}/100
